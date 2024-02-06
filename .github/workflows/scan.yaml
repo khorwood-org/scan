@@ -1,0 +1,14 @@
+name: scan
+on:
+    workflow-dispatch:
+jobs:
+    scan:
+        runs-on: [ubuntu]
+        steps:
+        - uses: actions/checkout@master
+        - name: run scan
+          run: |
+            REPOS=$(gh repo list ${{ env.GITHUB_REPOSITORY_OWNER }} --no-archived --json name --jq '.[].name')
+            echo $REPOS | while read -r repo; do
+                docker run trufflesecurity/trufflehog github --repo "https://github.com/${{ env.GITHUB_REPOSITORY_OWNER }}/$repo"`
+            done
