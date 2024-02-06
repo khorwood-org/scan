@@ -12,8 +12,7 @@ jobs:
           run: |
             gh repo list ${{ github.repository_owner }} --no-archived --json name --jq '.[].name' | while read repo; do
                 echo "scanning $repo"
-                docker run trufflesecurity/trufflehog github --repo "https://github.com/${{ github.repository_owner }}/$repo" --json > $repo.json
-                cat $repo.json
+                docker run trufflesecurity/trufflehog github --repo "https://github.com/${{ github.repository_owner }}/$repo" --json --max-depth=100 > $repo.json
             done
           env:
             GH_TOKEN: ${{ secrets.SCAN_TOKEN }}
