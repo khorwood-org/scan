@@ -12,3 +12,5 @@ jobs:
             echo $REPOS | while read -r repo; do
                 docker run trufflesecurity/trufflehog github --repo "https://github.com/${{ env.GITHUB_REPOSITORY_OWNER }}/$repo"`
             done
+          env:
+            GH_TOKEN: ${{ github.token }}
