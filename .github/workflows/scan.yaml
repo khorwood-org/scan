@@ -1,6 +1,6 @@
 name: scan
 on:
-    workflow-dispatch:
+    workflow_dispatch:
 jobs:
     scan:
         runs-on: [ubuntu]
