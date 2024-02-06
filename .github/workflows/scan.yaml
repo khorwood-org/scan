@@ -6,9 +6,12 @@ jobs:
         runs-on: [ubuntu-latest]
         steps:
         - uses: actions/checkout@master
+        - name: pull image
+          run: docker pull trufflesecurity/trufflehog
         - name: run scan
           run: |
             gh repo list ${{ github.repository_owner }} --no-archived --json name --jq '.[].name' | while read repo; do
+                echo "scanning $repo"
                 docker run trufflesecurity/trufflehog github --repo "https://github.com/${{ github.repository_owner }}/$repo"
             done
           env:
